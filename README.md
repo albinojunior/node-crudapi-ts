@@ -81,7 +81,7 @@ npm start
 ```
 
 
-### 5. Docs
+## 5. Docs
 
 - sequelize-typescript: https://github.com/RobinBuschmann/sequelize-typescript
 
