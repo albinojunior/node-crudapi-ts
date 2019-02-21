@@ -17,19 +17,19 @@ npm i -g db-migrate
 - MySQL databases
 
 ```
-npm i db-migrate-mysql --save
+npm i db-migrate-mysql mysql2 --save
 ```
 
 - PostegreSQL databases
 
 ```
-npm i db-migrate-pg --save
+npm i db-migrate-pg pg pg-hstore --save
 ```
 
 - Sqlite databases
 
 ```
-npm i db-migrate-sqlite3 --save
+npm i db-migrate-sqlite3 sqlite3 --save
 ```
 
 
