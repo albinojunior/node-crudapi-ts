@@ -1,0 +1,45 @@
+{
+   "name": "nodeapi-ts-boilerplate",
+   "version": "1.0.0",
+   "description": "A node API boilerplate with typescript and sequelize ORM.",
+   "devDependencies": {
+      "@types/bcryptjs": "^2.4.2",
+      "@types/body-parser": "^1.17.0",
+      "@types/dotenv": "^6.1.0",
+      "@types/express": "^4.16.1",
+      "@types/jsonwebtoken": "^7.2.8",
+      "@types/morgan": "^1.7.35",
+      "@types/multer": "^1.3.7",
+      "@types/node": "^8.10.39",
+      "pm2": "^3.2.9",
+      "typescript": "^3.3.3"
+   },
+   "dependencies": {
+      "bcryptjs": "^2.4.3",
+      "body-parser": "^1.18.3",
+      "chalk": "^2.4.2",
+      "db-migrate-mysql": "^1.1.10",
+      "dotenv": "^6.2.0",
+      "express": "^4.16.4",
+      "http": "0.0.0",
+      "jsonwebtoken": "^8.4.0",
+      "morgan": "^1.9.1",
+      "multer": "^1.4.1",
+      "mysql2": "^1.6.5",
+      "passport-jwt": "^4.0.0",
+      "reflect-metadata": "^0.1.13",
+      "sequelize": "^4.42.0",
+      "sequelize-typescript": "^0.6.7"
+   },
+   "contributors": [],
+   "license": "MIT",
+   "scripts": {
+      "build": "tsc",
+      "prestart": "npm run build",
+      "start": "pm2 start ecosystem.config.js",
+      "start:dev": "pm2 start ecosystem.config.js && pm2 log",
+      "stop": "pm2 delete all",
+      "poststart": "tsc -w",
+      "migrate:prod": "db-migrate -e prod"
+   }
+}

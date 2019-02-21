@@ -1,0 +1,8 @@
+export const config = {
+  database: process.env.DB_NAME,
+  dialect: process.env.DB_DRIVER,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  storage: ':memory:',
+  modelPaths: [__dirname + "/src/modules/**/*.model.js"]
+}

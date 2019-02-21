@@ -1,0 +1,19 @@
+{
+  "defaultEnv": "dev",
+  "dev": {
+    "host": { "ENV" : "DB_HOST" },
+    "user": { "ENV" : "DB_USER" },
+    "password" : { "ENV" : "DB_PASSWORD" },
+    "database": { "ENV" : "DB_NAME" },
+    "driver": { "ENV" : "DB_DRIVER" },
+    "multipleStatements": true
+  },
+  "prod": {
+    "host": { "ENV" : "DB_HOST" },
+    "user": { "ENV" : "DB_USER" },
+    "password" : { "ENV" : "DB_PASSWORD" },
+    "database": { "ENV" : "DB_DATABASE" },
+    "driver": { "ENV" : "DB_DRIVER" },
+    "multipleStatements": true
+  }
+}
