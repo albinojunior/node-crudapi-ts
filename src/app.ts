@@ -1,4 +1,7 @@
 
+//load environment varibles
+require("dotenv").config();
+
 import "reflect-metadata";
 import * as bodyParser from "body-parser";
 import * as express from "express";
@@ -6,11 +9,7 @@ import * as morgan from "morgan";
 import * as http from "http";
 import chalk from "chalk";
 import { dbConnect } from "./db";
-import dotenv from "dotenv";
 import router from "./routes";
-
-//load environment varibles
-dotenv.config();
 
 //start db connection
 dbConnect().then(() => {
@@ -35,9 +34,9 @@ dbConnect().then(() => {
     //load routes
     app.use('/', router);
 
-    // run express application on port 4000
-    server.listen(4000, () => {
-        console.log(chalk.greenBright(`api has been started in port 4000!`));
+    // run express application on port 3000
+    server.listen(3000, () => {
+        console.log(chalk.greenBright(`api has been started in port 3000!`));
     });
 
 }).catch((e: any) => { console.log(e) });

@@ -74,20 +74,14 @@ db-migrate up
 npm run migrate:prod OR db-migrate up -e prod
 ```
 
-## 5. Run Project
-
-```
-npm start
-```
-
-## 5. Run Project
+## 4. Run Project
 
 ```
 npm start
 ```
 
 
-### Docs
+### 5. Docs
 
 - sequelize-typescript: https://github.com/RobinBuschmann/sequelize-typescript
 

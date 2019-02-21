@@ -5,7 +5,6 @@
    "devDependencies": {
       "@types/bcryptjs": "^2.4.2",
       "@types/body-parser": "^1.17.0",
-      "@types/dotenv": "^6.1.0",
       "@types/express": "^4.16.1",
       "@types/jsonwebtoken": "^7.2.8",
       "@types/morgan": "^1.7.35",
@@ -31,8 +30,8 @@
       "sequelize": "^4.42.0",
       "sequelize-typescript": "^0.6.7"
    },
-   "contributors": [],
-   "license": "MIT",
+   "author": "José Albino Jr. <albinojunior.github.io>",
+   "license": "ISC",
    "scripts": {
       "build": "tsc",
       "prestart": "npm run build",
