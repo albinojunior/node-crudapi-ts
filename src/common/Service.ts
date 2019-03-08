@@ -40,9 +40,14 @@ abstract class Service {
             where = filter.execute(where, this.model, options);
         });
 
-        return await this.model.scope(scope).findAndCountAll({
+        let data = await this.model.scope(scope).findAndCountAll({
             limit, offset, order, where
         });
+
+        const total = data.count / limit;
+        const total_pages = total > Math.floor(total) ? Math.floor(total + 1) : total;
+
+        return { ...data, items_per_page: limit, current_page: Number(options.page), total_pages };
     };
 
     /**
