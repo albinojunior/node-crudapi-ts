@@ -2,14 +2,20 @@ import { Sequelize } from 'sequelize-typescript';
 
 export default abstract class ParseErrors {
 
-    public parseDefaultError = async (error: any) => {
+    /**
+     * @param error
+     */
+    public parseDefaultError = async (error: any): Promise<any> => {
         return {
             error: true,
             message: error.message
         }
     }
 
-    public parseValidationError = async (error: any) => {
+    /**
+     * @param error
+     */
+    public parseValidationError = async (error: any): Promise<any> => {
         const errors: any[] = [];
 
         error.errors.forEach((errorItem: Sequelize['ValidationErrorItem']) => {
@@ -25,7 +31,10 @@ export default abstract class ParseErrors {
         };
     }
 
-    public parseUniqueConstraintError = async (error: any) => {
+    /**
+     * @param error
+     */
+    public parseUniqueConstraintError = async (error: any): Promise<any> => {
         const errors: any[] = [];
 
         error.errors.forEach((errorItem: Sequelize['ValidationErrorItem']) => {

@@ -1,4 +1,4 @@
-import Controller from "../../common/Controller";
+import Controller from "../../../common/Controller";
 import UserService from "./user.service";
 
 

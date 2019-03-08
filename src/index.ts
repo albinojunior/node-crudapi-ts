@@ -8,11 +8,11 @@ import * as express from "express";
 import * as morgan from "morgan";
 import * as http from "http";
 import chalk from "chalk";
-import { dbConnect } from "./db";
-import router from "./routes";
+import { connect } from "./database";
+import router from "./app/routes";
 
 //start db connection
-dbConnect().then(() => {
+connect().then(() => {
 
     //start express and http server
     const app = express();

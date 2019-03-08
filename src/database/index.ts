@@ -1,8 +1,8 @@
 
 import { Sequelize } from "sequelize-typescript";
-import { config } from "../db.config";
+import { config } from "../config/db.config";
 
-export const dbConnect = async () =>{
+export const connect = async () =>{
   const db = new Sequelize(config);
   db.addModels(config.modelPaths);
   return db;

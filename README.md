@@ -32,7 +32,6 @@ npm i db-migrate-pg pg pg-hstore --save
 npm i db-migrate-sqlite3 sqlite3 --save
 ```
 
-
 ## 2. Enviroments
 
 Copy `.env.example` to `.env` and set enviroments
@@ -42,10 +41,10 @@ cp .env.example .env
 ```
 
 
-Copy `db.config.example` to `db.config.ts` and set enviroments
+Copy `src/config/db.config.example` to `src/config/db.config.ts` and set enviroments
 
 ```
-cp db.config.example db.config.ts
+cp src/config/db.config.example src/config/db.config.ts
 ```
 
 
@@ -59,25 +58,31 @@ db-migrate db:create DB_NAME
 
 ### 3.2 Migrations
 ```
-db-migrate create MIGRATION_NAME
+npm run create-migration -- MIGRATION_NAME
 ```
 
 ### 3.3 Running Migrations
 
 - DEV
 ```
-db-migrate up
+npm run migrate
 ```
 
 - PROD
 ```
-npm run migrate:prod OR db-migrate up -e prod
+npm run migrate:prod
 ```
 
 ## 4. Run Project
 
+- DEV
 ```
 npm start
+```
+
+- PROD
+```
+npm start:prod
 ```
 
 

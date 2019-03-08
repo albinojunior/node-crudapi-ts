@@ -25,6 +25,8 @@
       "morgan": "^1.9.1",
       "multer": "^1.4.1",
       "mysql2": "^1.6.5",
+      "nodemailer": "^5.1.1",
+      "nodemailer-express-handlebars": "^3.0.0",
       "passport-jwt": "^4.0.0",
       "reflect-metadata": "^0.1.13",
       "sequelize": "^4.42.0",
@@ -33,12 +35,14 @@
    "author": "José Albino Jr. <albinojunior.github.io>",
    "license": "ISC",
    "scripts": {
-      "build": "tsc",
       "prestart": "npm run build",
       "start": "pm2 start ecosystem.config.js",
-      "start:dev": "pm2 start ecosystem.config.js && pm2 log",
-      "stop": "pm2 delete all",
       "poststart": "tsc -w",
-      "migrate:prod": "db-migrate -e prod"
+      "stop": "pm2 delete all",
+      "build": "tsc",
+      "start:prod": "sudo rm -rf dist && sudo npm run build && npm run migrate:prod && sudo pm2 start ecosystem.config.js && sudo pm2 log",
+      "create-migration": "db-migrate create -m ./src/database/migrations",
+      "migrate": "db-migrate up -m ./src/database/migrations",
+      "migrate:prod": "db-migrate -e prod -m ./src/database/migrations"
    }
 }

@@ -1,47 +1,93 @@
-import { Request, Response } from "express-serve-static-core";
+import {Response} from "express-serve-static-core";
 import HandleErrors from "./HandleErrors";
+import {HTTP_STATUS_CODES} from "./Constraints";
 
 export default abstract class ControllerReturns extends HandleErrors {
 
-    public return200(res: Response, data: any, message: any = null, created: boolean = false) {
-        return res.status(created ? 201 : 200).send({
-            message: message,
-            data: data,
-            error: false
-        });
+    /**
+     * @param res
+     * @param data
+     * @param message
+     * @param error
+     * @param status
+     */
+    public return(res: Response, data: any = {}, message: any = null, error: boolean = false, status: number = HTTP_STATUS_CODES.OK) {
+        return res.status(status).send({message, data, error});
     }
 
-    public return500(res: Response, message: any = null) {
-        return res.status(500).send({
-            message: message,
-            error: true
-        });
+    /**
+     *
+     * @param res
+     * @param data
+     * @param status
+     */
+    public returnData(res: Response, data: any = {}, status: number = HTTP_STATUS_CODES.OK) {
+        return res.status(status).send(data);
     }
 
-    public return400(res: Response, message: any = null) {
-        return res.status(500).send({
-            message: message,
-            error: true
-        });
+    /**
+     *
+     * @param res
+     * @param message
+     * @param status
+     * @param error
+     */
+    public returnMessage(res: Response, message: string = "", status: number = HTTP_STATUS_CODES.OK, error: boolean = false) {
+        return res.status(status).send({message, error});
     }
 
-    public return404(res: Response, message: any = null) {
-        return res.status(404).send({
-            message: message,
-            error: true
-        });
+    /**
+     *
+     * @param res
+     * @param data
+     * @param message
+     */
+    public returnCreated(res: Response, data: any = {}, message: string = "") {
+        return this.return(res, data, message, false, HTTP_STATUS_CODES.CREATED);
     }
 
-    public return(res: Response, data: any, message: any = null, error: boolean = false, status: any = 200) {
-        return res.status(status).send({
-            message,
-            data,
-            error
-        });
+    /**
+     *
+     * @param res
+     * @param message
+     */
+    public returnBadRequest(res: Response, message: string = "") {
+        return this.returnMessage(res, message, HTTP_STATUS_CODES.BAD_REQUEST);
     }
 
+    /**
+     *
+     * @param res
+     * @param message
+     */
+    public returnUnauthorized(res: Response, message: string = "") {
+        return this.returnMessage(res, message, HTTP_STATUS_CODES.UNAUTHORIZED);
+    }
+
+    /**
+     *
+     * @param res
+     * @param message
+     */
+    public returnNotFound(res: Response, message: string = "") {
+        return this.returnMessage(res, message, HTTP_STATUS_CODES.NOT_FOUND);
+    }
+
+    /**
+     *
+     * @param res
+     * @param message
+     */
+    public returnServerError(res: Response, message: string = "") {
+        return this.returnMessage(res, message, HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR);
+    }
+
+    /**
+     *
+     * @param res
+     * @param error
+     */
     public processError = async (res: Response, error: any) => {
-        return res.status(400)
-            .send(await this.parseErrors(error));
-    };
+        return this.returnData(res, await this.parseErrors(error), HTTP_STATUS_CODES.BAD_REQUEST);
+    }
 }

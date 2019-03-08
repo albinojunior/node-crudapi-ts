@@ -1,4 +1,5 @@
 import Controller from "./Controller";
+import {Router} from "express";
 
 class Resource {
 
@@ -10,21 +11,21 @@ class Resource {
      * @param except - [store, index, get, update, delete] - Array of controller functions to exclude
      * @return {any}
      */
-    public static create(router: any, controller: Controller, except: any = []) {
+    public static create(router: any, controller: Controller, except: any = []): Router {
 
-        if(!except.includes('store'))
-            router.post('/',   controller.store);
+        if (!except.includes('store'))
+            router.post('/', controller.store);
 
-        if(!except.includes('index'))
-            router.get('/',    controller.index);
+        if (!except.includes('index'))
+            router.get('/', controller.index);
 
-        if(!except.includes('get'))
+        if (!except.includes('get'))
             router.get('/:id', controller.get);
 
-        if(!except.includes('update'))
-            router.put('/:id',    controller.update);
+        if (!except.includes('update'))
+            router.put('/:id', controller.update);
 
-        if(!except.includes('delete'))
+        if (!except.includes('delete'))
             router.delete('/:id', controller.delete);
 
         return router;

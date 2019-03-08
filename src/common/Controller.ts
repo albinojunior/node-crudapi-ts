@@ -12,15 +12,15 @@ abstract class Controller extends ControllerReturns {
      * @param {Response} res
      * @return {Promise<void>}
      */
-    public get = async (req: Request, res: Response) => {
+    public get = async (req: Request, res: Response): Promise<any> => {
         const id = req.params.id;
 
         if (!id) {
-            this.return500(res, `ID de ${this.service.modelName} inválido!`);
+            this.returnBadRequest(res, `ID de ${this.service.modelName} inválido!`);
         }
 
         const data = await this.service.get(id);
-        this.return200(res, data);
+        this.returnData(res, data);
     };
 
 
@@ -30,12 +30,19 @@ abstract class Controller extends ControllerReturns {
      * @param {Response} res
      * @return {Promise<void>}
      */
-    public index = async (req: Request, res: Response) => {
-        const options = await this.getPaginateOptions(req.query);
-        const data = await this.service.all(options);
-        this.return200(res, data);
-    };
+    public index = async (req: Request, res: Response): Promise<any> => {
+        const list = req.query.list;
+        let data;
 
+        if (list) {
+            data = await this.service.list();
+        } else {
+            const options = await this.getPaginateOptions(req.query);
+            data = await this.service.all(options);
+        }
+
+        this.returnData(res, data);
+    };
 
     /**
      *
@@ -43,17 +50,17 @@ abstract class Controller extends ControllerReturns {
      * @param res
      * @return {Promise<void>}
      */
-    public store = async (req: any, res: any) => {
+    public store = async (req: any, res: any): Promise<any> => {
         try {
             const created = await this.service.create(req.body);
             if (created) {
-                this.return200(res, created, `${this.service.modelName} criado com sucesso!`, true);
+                this.returnCreated(res, created, `${this.service.modelName} criado com sucesso!`);
             } else {
-                this.return400(res, `Erro durante criação de ${this.service.modelName}`);
+                this.returnBadRequest(res, `Erro durante criação de ${this.service.modelName}`);
             }
         } catch (err) {
-            this.processError(res, err);
-            // this.return400(res, `Erro durante a criação. ${err.message}`);
+            console.log(err);
+            return this.processError(res, err);
         }
     };
 
@@ -63,58 +70,59 @@ abstract class Controller extends ControllerReturns {
      * @param {Response} res
      * @return {Promise<void>}
      */
-    public update = async (req: Request, res: Response) => {
+    public update = async (req: Request, res: Response): Promise<any> => {
         const id = req.params.id;
 
         if (!id) {
-            this.return404(res, `ID de ${this.service.modelName} inválido!`);
+            this.returnNotFound(res, `ID de ${this.service.modelName} inválido!`);
         }
 
         try {
             const updated = await this.service.update(req.body, id);
             if (updated) {
-                const user = await this.service.get(id, false);
-                this.return200(res, user, `${this.service.modelName} atualizado com sucesso!`);
+                const model = await this.service.get(id);
+                this.return(res, model, `${this.service.modelName} atualizado com sucesso!`);
             } else {
-                this.return400(res, `Erro durante a atualização de ${this.service.modelName}`);
+                this.returnServerError(res, `Erro durante a atualização de ${this.service.modelName}.`);
             }
         } catch (err) {
-            this.processError(res, err);
-            // this.return400(res, `Erro durante a atualização. ${err.message}`);
+            console.log(err);
+            return this.processError(res, err);
         }
     };
 
     /**
-     *
      * @param {Request} req
      * @param {Response} res
      * @return {Promise<void>}
      */
-    public delete = async (req: Request, res: Response) => {
-        const id = req.params.id;
-
-        if (!id) {
-            this.return404(res, `ID de ${this.service.modelName} inválido!`);
-        }
-
+    public delete = async (req: Request, res: Response): Promise<any> => {
         try {
+            const id = req.params.id;
+
+            if (!id) return this.returnNotFound(res, `ID de ${this.service.modelName} inválido!`);
+
             if (await this.service.delete(id)) {
-                this.return200(res, null, `${this.service.modelName} excluido com sucesso!`, true);
+                this.returnMessage(res, `${this.service.modelName} excluido com sucesso!`);
             } else {
-                this.return400(res, `Erro durante a exclusão de ${this.service.modelName}`);
+                this.returnBadRequest(res, `Erro durante a exclusão de ${this.service.modelName}`);
             }
         } catch (err) {
-            this.processError(res, err);
-            // this.return400(res, `Erro durante a exclusão. ${err.message}`);
+            return this.processError(res, err);
         }
     };
 
-    private getPaginateOptions = async (query: any) => {
+    /**
+     * @param query
+     */
+    public getPaginateOptions = async (query: any): Promise<any> => {
         return {
-            limit: query.hasOwnProperty('limit') ? query.limit : 15,
-            page: query.hasOwnProperty('page') ? query.page : 1,
-            order: query.hasOwnProperty('order') ? query.order : "ASC",
-            sort: query.hasOwnProperty('sort') ? query.sort : "id"
+            limit: query.hasOwnProperty('limit') && query.limit ? query.limit : 15,
+            search: query.hasOwnProperty('search') && query.search ? query.search : "",
+            page: query.hasOwnProperty('page') && query.page ? query.page : 1,
+            order: query.hasOwnProperty('order') && query.order ? query.order : "ASC",
+            sort: query.hasOwnProperty('sort') && query.sort ? query.sort : "id",
+            query
         }
     }
 }
