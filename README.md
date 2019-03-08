@@ -50,18 +50,12 @@ cp src/config/db.config.example src/config/db.config.ts
 
 ## 3. Database
 
-
-### 3.1 Create DB
-```
-db-migrate db:create DB_NAME
-```
-
-### 3.2 Migrations
+### 3.1 Migrations
 ```
 npm run create-migration -- MIGRATION_NAME
 ```
 
-### 3.3 Running Migrations
+### 3.1 Running Migrations
 
 - DEV
 ```
