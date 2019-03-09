@@ -1,30 +1,30 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "resolveJsonModule": true,
-        "isolatedModules": false,
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "outDir": "dist",
-        "sourceMap": true,
-        "sourceRoot": "src",
-        "noEmitHelpers": false,
-        "strict": true,
-        "strictPropertyInitialization": false,
-        "target": "es6",
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "es2015",
-            "dom",
-            "es2017"
-        ]
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
+  "compilerOptions": {
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "isolatedModules": false,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "dist",
+    "sourceMap": true,
+    "sourceRoot": "src",
+    "noEmitHelpers": false,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "target": "es6",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2015",
+      "dom",
+      "es2017"
     ]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

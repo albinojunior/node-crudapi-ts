@@ -6,7 +6,7 @@ import { auth } from "../middlewares/auth.middleware";
 const router: express.Router = express.Router();
 
 router.all('/', (req: any, res: any) => {
-    res.send('WELLCOME TO NODE API');
+  res.send('WELLCOME TO NODE API');
 });
 
 

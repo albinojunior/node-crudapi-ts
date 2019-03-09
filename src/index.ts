@@ -1,6 +1,4 @@
-
-//load environment varibles
-require("dotenv").config();
+require("dotenv").config(); //load enviroment
 
 import "reflect-metadata";
 import * as bodyParser from "body-parser";
@@ -11,34 +9,36 @@ import chalk from "chalk";
 import { connect } from "./database";
 import router from "./app/routes";
 
-//start db connection
-connect().then(() => {
+const startServer = async () => {
+  await connect();
 
-    //start express and http server
-    const app = express();
-    const server = http.createServer(app);
+  const app = express();
+  const server = http.createServer(app);
 
-    //apply middlewares
-    app.use(morgan("dev"));
-    app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
+  app.use(morgan("dev"));
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
-    //cors config
-    app.use(function (req: any, res: any, next) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-        next();
-    });
+  app.use(function (req: any, res: any, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+  });
 
-    //load routes
-    app.use('/', router);
+  app.use('/', router);
 
-    // run express application on port 3000
-    server.listen(3000, () => {
-        console.log(chalk.greenBright(`api has been started in port 3000!`));
-    });
+  const port = process.env.APP_PORT || 3000;
+  server.listen(port, () => {
+    console.log(chalk.greenBright(`API has been started in port ${port}!`));
+  });
 
-}).catch((e: any) => { console.log(e) });
+};
 
-
+startServer()
+  .then(() => {
+    console.log(chalk.bgGreen(chalk.whiteBright("API RUNNING...")));
+  })
+  .catch((error) => {
+    console.log(chalk.redBright(error));
+  });
