@@ -1,6 +1,7 @@
 'use strict';
 
 import searchFilter from "../app/filters/search.filter";
+import { Sequelize } from "sequelize-typescript";
 
 abstract class Service {
 
@@ -26,8 +27,8 @@ abstract class Service {
    */
   public all = async (options: any, scope: any = "full"): Promise<any> => {
 
-    const where = this.processFilters(options);
-    const findOptions = this.buildFindOptions(options);
+    const where = await this.processFilters(options);
+    const findOptions = await this.buildFindOptions(options);
     const data = await this.model.scope(scope).findAndCountAll({ ...findOptions, where });
 
     return await this.buildPaginationMetadata(data, options);
@@ -71,7 +72,7 @@ abstract class Service {
 
 
   private processFilters = async (options: any) => {
-    let where = searchFilter.execute({}, this.model, options);
+    let where = searchFilter.execute({ [Sequelize.Op.and]: [] }, this.model, options);
 
     this.filters.forEach(filter => {
       where = filter.execute(where, this.model, options);
@@ -80,6 +81,11 @@ abstract class Service {
     return where;
   };
 
+  /**
+   * Building find options
+   *
+   * @param options
+   */
   private buildFindOptions = async (options: any) => {
     const limit = parseInt(options.limit);
     const offset = (options.page - 1) * limit;
@@ -88,6 +94,12 @@ abstract class Service {
     return { limit, offset, order }
   };
 
+  /**
+   * Building pagination metadata
+   *
+   * @param data
+   * @param options
+   */
   private buildPaginationMetadata = async (data: any, options: any) => {
     const limit = parseInt(options.limit);
     const total = data.count / limit;
