@@ -6,9 +6,9 @@ import { Sequelize } from 'sequelize-typescript';
 class SearchFilter implements Filter {
 
   execute(where: any, model: any, options: any): any {
+    where[Sequelize.Op.and] = [];
 
     if (options.search.length > 0) {
-      where[Sequelize.Op.and] = [];
       where[Sequelize.Op.and].push({
         [Sequelize.Op.or]: Object.keys(model.attributes)
           .map((field: string) => {
