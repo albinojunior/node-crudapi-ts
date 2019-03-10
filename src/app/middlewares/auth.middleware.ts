@@ -2,13 +2,14 @@ import { verify } from "jsonwebtoken";
 import User from "../modules/user/user.model";
 import cfg from "../../config/jwt.config";
 import { NextFunction, Request, Response } from "express-serve-static-core";
+import ControllerReturns from "../../common/ControllerReturns";
 
-export class AuthMiddleware {
+export class AuthMiddleware extends ControllerReturns {
 
   public getAuthUser = async (req: Request): Promise<User | any> => {
     const token = this.getToken(req);
     return await this.getAuthUserByToken(token);
-  }
+  };
 
   public getAuthUserByToken = async (token: any): Promise<User | any> => {
     const decoded: any = verify(token, cfg.secretOrKey);
@@ -17,14 +18,14 @@ export class AuthMiddleware {
       throw new Error('Acesso Expirado, faça login novamente');
 
     return await User.findOne({ where: { email: decoded.email } });
-  }
+  };
 
   public getToken = (req: Request): any => {
     const token = cfg.jwtFromRequest(req);
     if (!token) throw new Error('Token is required');
 
     return token;
-  }
+  };
 
   public verifyAuth = async (req: Request, res: Response, next: NextFunction) => {
     if (req.method == 'OPTIONS') return next();
@@ -37,16 +38,12 @@ export class AuthMiddleware {
         res.locals = { authUser };
         next();
       } else {
-        return this.dispatchUnauthorizedError(res);
+        return this.returnUnauthorized(res);
       }
 
     } catch (err) {
-      return this.dispatchUnauthorizedError(res);
+      return this.returnUnauthorized(res, err.message);
     }
-  };
-
-  private dispatchUnauthorizedError = (res: Response) => {
-    return res.status(401).send('Unauthozired');
   };
 
 }

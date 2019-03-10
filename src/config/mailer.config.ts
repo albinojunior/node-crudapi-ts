@@ -1,8 +1,7 @@
 export const config = {
-  host: process.env.MAIL_HOST || "",
-  port: process.env.MAIL_PORT || "",
+  service: 'Gmail',
   auth: {
-    user: process.env.MAIL_USER || "",
-    pass: process.env.MAIL_PASSWORD || ""
+    user: process.env.MAIL_USER || "email@gmail.com",
+    pass: process.env.MAIL_PASS || "password"
   }
 }

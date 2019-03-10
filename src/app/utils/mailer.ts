@@ -1,10 +1,11 @@
 import { resolve } from "path";
 import { config } from "../../config/mailer.config";
+import { createTransport } from "nodemailer";
+import * as Mail from "nodemailer/lib/mailer";
 
-const nodemailer = require("nodemailer");
 const hbs = require("nodemailer-express-handlebars");
 
-const mailer = nodemailer.createTransport(config);
+const mailer: Mail = createTransport(config);
 
 const path = resolve("src/resources/mail");
 

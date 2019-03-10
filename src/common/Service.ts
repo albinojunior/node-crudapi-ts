@@ -61,6 +61,17 @@ abstract class Service {
     return await this.model.update(data, { where: { id }, sideEffects: false });
   };
 
+
+  /**
+   * Update method
+   *
+   * @param data
+   * @param where
+   */
+  public updateWhere = async (data: any, where: any): Promise<any> => {
+    return await this.model.update(data, { where });
+  };
+
   /**
    * Delete method
    *
@@ -68,6 +79,15 @@ abstract class Service {
    */
   public delete = async (id: any): Promise<any> => {
     return await this.model.destroy({ where: { id } });
+  };
+
+  /**
+   * Delete method
+   *
+   * @param where
+   */
+  public deleteWhere = async (where: any): Promise<any> => {
+    return await this.model.destroy({ where });
   };
 
 
