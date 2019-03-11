@@ -1,7 +1,7 @@
 {
-  "name": "nodeapi-ts-boilerplate",
+  "name": "nodeapi-ts",
   "version": "1.0.0",
-  "description": "A node API boilerplate with typescript and sequelize ORM.",
+  "description": "A Node API boilerplate with typescript and sequelize ORM.",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.17.0",

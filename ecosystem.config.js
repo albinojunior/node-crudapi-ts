@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'nodeapi-boilerplate',
+    name: 'nodeapi-ts',
     script: 'dist/src/index.js',
     watch: ['./src'],
     log_date_format: "YYYY-MM-DD HH:mm:ss",
