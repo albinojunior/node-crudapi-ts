@@ -1,5 +1,5 @@
 import User from "./user.model";
-import Service from "../../../common/Service";
+import Service from "../../common/Service";
 
 class UserService extends Service {
 

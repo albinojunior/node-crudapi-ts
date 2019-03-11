@@ -6,7 +6,7 @@ export default abstract class HandleErrors extends ParseErrors {
   /**
    * @param error
    */
-  public parseErrors = async (error: any): Promise<any> => {
+  parseErrors = async (error: any): Promise<any> => {
     const parseFunction = await this.getParseFunction(error);
     return await parseFunction(error);
   };

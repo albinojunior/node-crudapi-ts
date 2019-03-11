@@ -1,18 +1,26 @@
+import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
+import jwt from "../utils/jwt";
 import User from "../modules/user/user.model";
-import cfg from "../../config/jwt.config";
-import { NextFunction, Request, Response } from "express-serve-static-core";
-import ControllerReturns from "../../common/ControllerReturns";
+import ControllerReturns from "../common/ControllerReturns";
 
 export class AuthMiddleware extends ControllerReturns {
 
-  public getAuthUser = async (req: Request): Promise<User | any> => {
+  /**
+   *
+   * @param req
+   */
+  getAuthUser = async (req: Request): Promise<User | null> => {
     const token = this.getToken(req);
     return await this.getAuthUserByToken(token);
   };
 
-  public getAuthUserByToken = async (token: any): Promise<User | any> => {
-    const decoded: any = verify(token, cfg.secretOrKey);
+  /**
+   *
+   * @param token
+   */
+  getAuthUserByToken = async (token: string): Promise<User | null> => {
+    const decoded: any = verify(token, jwt.secretKey);
 
     if (decoded.exp <= Date.now())
       throw new Error('Acesso Expirado, faça login novamente');
@@ -20,23 +28,32 @@ export class AuthMiddleware extends ControllerReturns {
     return await User.findOne({ where: { email: decoded.email } });
   };
 
-  public getToken = (req: Request): any => {
-    const token = cfg.jwtFromRequest(req);
+  /**
+   *
+   * @param req
+   */
+  getToken = (req: Request): string => {
+    const token = jwt.getTokenFromRequest(req);
     if (!token) throw new Error('Token is required');
 
     return token;
   };
 
-  public verifyAuth = async (req: Request, res: Response, next: NextFunction) => {
+  /**
+   *
+   * @param req
+   * @param res
+   * @param next
+   */
+  verifyAuth = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     if (req.method == 'OPTIONS') return next();
 
     try {
-      const token = this.getToken(req);
-      const authUser = await this.getAuthUserByToken(token);
+      const authUser = await this.getAuthUser(req);
 
       if (authUser) {
         res.locals = { authUser };
-        next();
+        return next();
       } else {
         return this.returnUnauthorized(res);
       }
@@ -48,10 +65,4 @@ export class AuthMiddleware extends ControllerReturns {
 
 }
 
-const authMiddleware = new AuthMiddleware();
-
-//export singleton of middleware class
-export default authMiddleware;
-
-//export default function middleware
-export const auth = authMiddleware.verifyAuth;
+export default new AuthMiddleware();

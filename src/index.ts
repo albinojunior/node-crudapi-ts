@@ -1,44 +1,21 @@
-require("dotenv").config(); //load enviroment
+require("dotenv").config();
 
 import "reflect-metadata";
-import * as bodyParser from "body-parser";
-import * as express from "express";
-import * as morgan from "morgan";
 import * as http from "http";
 import chalk from "chalk";
-import { connect } from "./database";
-import router from "./app/routes";
 
-const startServer = async () => {
-  await connect();
+import App from './App';
 
-  const app = express();
-  const server = http.createServer(app);
+const { APP_PORT } = process.env;
 
-  app.use(morgan("dev"));
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json());
+const server = http.createServer(App);
+server.listen(APP_PORT);
 
-  app.use(function (req: any, res: any, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-  });
+server.on('listening', () => {
+  console.log(chalk.bgGreen(chalk.whiteBright(`API has been started in port ${APP_PORT}!`)));
+});
 
-  app.use('/', router);
+server.on('error', (error: NodeJS.ErrnoException) => {
+  console.log(chalk.bgRed(chalk.whiteBright(error.message)));
+});
 
-  const port = process.env.APP_PORT || 3000;
-  server.listen(port, () => {
-    console.log(chalk.greenBright(`API has been started in port ${port}!`));
-  });
-
-};
-
-startServer()
-  .then(() => {
-    console.log(chalk.bgGreen(chalk.whiteBright("API RUNNING...")));
-  })
-  .catch((error) => {
-    console.log(chalk.redBright(error));
-  });

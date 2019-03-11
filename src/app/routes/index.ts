@@ -1,16 +1,27 @@
-import * as express from "express";
-import apiRouter from "./api";
-import authRouter from "../modules/auth/auth.router";
-import { auth } from "../middlewares/auth.middleware";
+import { Router } from "express";
 
-const router: express.Router = express.Router();
+import { name, version } from "../../../package.json";
+import authMiddleware from "../middlewares/auth.middleware";
 
-router.all('/', (req: any, res: any) => {
-  res.send('WELLCOME TO NODE API');
-});
+import ApiRouter from "./api";
+import AuthRouter from "../modules/auth/auth.router";
 
+export class IndexRouter {
+  router: Router = Router();
 
-router.use('/auth', authRouter);
-router.use('/api', auth, apiRouter);
+  constructor() {
+    this.init();
+  }
 
-export default router;
+  init(): void {
+    this.router.use('/api', authMiddleware.verifyAuth, ApiRouter);
+    this.router.use('/auth', AuthRouter);
+
+    this.router.all('/', (req: any, res: any) => {
+      res.send(`${name} ${version}`);
+    });
+  }
+
+}
+
+export default IndexRouter;

@@ -41,14 +41,14 @@ cp .env.example .env
 ```
 
 
-Copy `src/config/db.config.example` to `src/config/db.config.ts` and set enviroments
+Copy `src/config/db.config.example` to `src/config/db.ts` and set enviroments
 
 ```
-cp src/config/db.config.example src/config/db.config.ts
+cp src/config/db.config.example src/config/db.ts
 ```
 
 
-## 3. Database
+## 3. Index
 
 ### 3.1 Migrations
 ```

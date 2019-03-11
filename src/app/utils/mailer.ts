@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { config } from "../../config/mailer.config";
+import { config } from "../../config/mailer";
 import { createTransport } from "nodemailer";
 import * as Mail from "nodemailer/lib/mailer";
 

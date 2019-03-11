@@ -6,7 +6,5 @@ tmp/
 temp/
 .env
 .npm
-/config.*
-/db.config.ts
 package-lock.json
 dist/

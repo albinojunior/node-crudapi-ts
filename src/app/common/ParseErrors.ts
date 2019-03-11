@@ -5,17 +5,17 @@ export default abstract class ParseErrors {
   /**
    * @param error
    */
-  public parseDefaultError = async (error: any): Promise<any> => {
+  parseDefaultError = (error: any): any => {
     return {
       error: true,
       message: error.message
     }
-  }
+  };
 
   /**
    * @param error
    */
-  public parseValidationError = async (error: any): Promise<any> => {
+  parseValidationError = (error: any): any => {
     const errors: any[] = [];
 
     error.errors.forEach((errorItem: Sequelize['ValidationErrorItem']) => {
@@ -29,12 +29,12 @@ export default abstract class ParseErrors {
     return {
       errors
     };
-  }
+  };
 
   /**
    * @param error
    */
-  public parseUniqueConstraintError = async (error: any): Promise<any> => {
+  parseUniqueConstraintError = (error: any): any => {
     const errors: any[] = [];
 
     error.errors.forEach((errorItem: Sequelize['ValidationErrorItem']) => {

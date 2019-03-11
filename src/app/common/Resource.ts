@@ -7,11 +7,10 @@ class Resource {
    * Create resource with defaults controller functions
    *
    * @param router
-   * @param {Controller} controller
-   * @param except - [store, index, get, update, delete] - Array of controller functions to exclude
-   * @return {any}
+   * @param controller
+   * @param except
    */
-  public static create(router: any, controller: Controller, except: any = []): Router {
+  static create(router: Router, controller: Controller, except: string[] = []): Router {
 
     if (!except.includes('store'))
       router.post('/', controller.store);

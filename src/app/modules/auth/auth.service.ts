@@ -1,8 +1,8 @@
 import User from "../user/user.model";
-import Service from "../../../common/Service";
+import Service from "../../common/Service";
 import mailer from "../../utils/mailer";
 import { sign } from "jsonwebtoken";
-import cfg from "../../../config/jwt.config";
+import cfg from "../../utils/jwt";
 import { AES } from "crypto-js";
 
 class AuthService extends Service {
@@ -17,7 +17,7 @@ class AuthService extends Service {
     template: "auth/forgot_password"
   };
 
-  public sendForgotPasswordEmail = async (to: string, token: any): Promise<any> => {
+  sendForgotPasswordEmail = async (to: string, token: any): Promise<any> => {
     await mailer.sendMail({
       ...this.forgotEmailConfig,
       to,
@@ -25,16 +25,16 @@ class AuthService extends Service {
     });
   };
 
-  public generateToken = async (email: string): Promise<any> => {
+  generateToken = async (email: string): Promise<any> => {
     const now = new Date();
     const expires_in = now.setHours(now.getHours() + 1);
-    const token = sign({ email, exp: expires_in }, cfg.secretOrKey);
+    const token = sign({ email, exp: expires_in }, cfg.secretKey);
 
     return { token, expires_in }
   };
 
 
-  public createResetToken = async (email: string): Promise<any> => {
+  createResetToken = async (email: string): Promise<any> => {
     const now = new Date();
     const reset_password_token = AES.encrypt(email, process.env.APP_SECRET_KEY || "SECRET").toString();
     const reset_password_expires = now.setHours(now.getHours() + 24);

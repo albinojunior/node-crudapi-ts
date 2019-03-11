@@ -1,6 +1,6 @@
 'use strict';
 
-import searchFilter from "../app/filters/search.filter";
+import searchFilter from "../filters/search.filter";
 import { Sequelize } from "sequelize-typescript";
 
 abstract class Service {
@@ -15,7 +15,7 @@ abstract class Service {
    * @param id
    * @param scope
    */
-  public get = async (id: number, scope: any = "full"): Promise<any> => {
+  get = async (id: number, scope: any = "full"): Promise<any> => {
     return await this.model.scope(scope).findByPk(id);
   };
 
@@ -25,7 +25,7 @@ abstract class Service {
    * @param options
    * @param scope
    */
-  public all = async (options: any, scope: any = "full"): Promise<any> => {
+  all = async (options: any, scope: any = "full"): Promise<any> => {
 
     const where = await this.processFilters(options);
     const findOptions = await this.buildFindOptions(options);
@@ -38,7 +38,7 @@ abstract class Service {
   /**
    * List all method
    */
-  public list = async (): Promise<any> => {
+  list = async (): Promise<any> => {
     return await this.model.scope("list").findAll();
   };
 
@@ -47,7 +47,7 @@ abstract class Service {
    *
    * @param object
    */
-  public create = async (object: any): Promise<any> => {
+  create = async (object: any): Promise<any> => {
     return await this.model.create(object);
   };
 
@@ -57,7 +57,7 @@ abstract class Service {
    * @param data
    * @param id
    */
-  public update = async (data: any, id: any): Promise<any> => {
+  update = async (data: any, id: any): Promise<any> => {
     return await this.model.update(data, { where: { id }, sideEffects: false });
   };
 
@@ -68,7 +68,7 @@ abstract class Service {
    * @param data
    * @param where
    */
-  public updateWhere = async (data: any, where: any): Promise<any> => {
+  updateWhere = async (data: any, where: any): Promise<any> => {
     return await this.model.update(data, { where });
   };
 
@@ -77,7 +77,7 @@ abstract class Service {
    *
    * @param id
    */
-  public delete = async (id: any): Promise<any> => {
+  delete = async (id: any): Promise<any> => {
     return await this.model.destroy({ where: { id } });
   };
 
@@ -86,7 +86,7 @@ abstract class Service {
    *
    * @param where
    */
-  public deleteWhere = async (where: any): Promise<any> => {
+  deleteWhere = async (where: any): Promise<any> => {
     return await this.model.destroy({ where });
   };
 

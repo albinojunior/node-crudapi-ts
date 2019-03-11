@@ -1,7 +1,7 @@
-import Filter from "../../common/Filter";
-
-import { isNumberType } from '../utils/functions.utils';
 import { Sequelize } from 'sequelize-typescript';
+
+import Filter from "../common/Filter";
+import { isNumberType } from '../utils/functions.utils';
 
 class SearchFilter implements Filter {
 

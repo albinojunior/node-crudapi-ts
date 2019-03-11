@@ -1,10 +1,20 @@
-import * as express from "express";
 import controller from "./user.controller";
-import Resource from "../../../common/Resource";
+import Resource from "../../common/Resource";
+import Controller from "../../common/Controller";
+import { Router } from "express";
 
-const router: express.Router = express.Router();
+export class UserRouter {
+  router: Router = Router();
+  controller: Controller = controller;
 
-const resource = Resource.create(router, controller, ['store']);
-resource.post('/', controller.register);
+  constructor() {
+    this.init();
+  }
 
-export default resource;
+  init(): void {
+    this.router = Resource.create(this.router, this.controller);
+  }
+
+}
+
+export default new UserRouter().router;

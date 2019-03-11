@@ -12,10 +12,10 @@ export const NUMBER_TYPES: any[] = [
   DataType.DOUBLE,
   DataType.DECIMAL,
   DataType.BIGINT
-]
+];
 
 
-export const HTTP_STATUS_CODES = {
+export const HTTP = {
   OK: 200,
   CREATED: 201,
   TEMPORARY_REDIRECT: 307,
@@ -29,4 +29,4 @@ export const HTTP_STATUS_CODES = {
   BAD_GATEWAY: 502,
   SERVICE_UNAVAILABLE: 503,
   GATEWAY_TIMEOUT: 504
-}
+};

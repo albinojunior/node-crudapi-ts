@@ -1,8 +1,17 @@
-import * as express from "express";
-import usersRouter from "../modules/user/user.router";
+import UserRouter from "../modules/user/user.router";
+import { Router } from "express";
 
-const router: express.Router = express.Router();
+export class ApiRouter {
+  router: Router = Router();
 
-router.use('/users', usersRouter);
+  constructor() {
+    this.init();
+  }
 
-export default router;
+  init(): void {
+    this.router.use('/users', UserRouter);
+  }
+
+}
+
+export default new ApiRouter().router;

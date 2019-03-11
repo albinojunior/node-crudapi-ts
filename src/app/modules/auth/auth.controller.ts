@@ -1,5 +1,5 @@
-import { Request, Response } from "express-serve-static-core";
-import Controller from "../../../common/Controller";
+import { Request, Response } from "express";
+import Controller from "../../common/Controller";
 import { compare, hash } from "bcryptjs";
 import User from "../user/user.model";
 import AuthService from "./auth.service";
@@ -8,7 +8,7 @@ export class AuthController extends Controller {
 
   service: any = AuthService;
 
-  public authenticate = async (req: Request, res: Response) => {
+  authenticate = async (req: Request, res: Response) => {
     let messageError = 'Usuário ou senha incorretos.';
     try {
       const { email, password } = req.body;
@@ -30,7 +30,7 @@ export class AuthController extends Controller {
     }
   };
 
-  public forgotPassword = async (req: Request, res: Response) => {
+  forgotPassword = async (req: Request, res: Response) => {
     try {
       const { email } = req.body;
 
@@ -51,7 +51,7 @@ export class AuthController extends Controller {
   };
 
 
-  public resetPassword = async (req: Request, res: Response) => {
+  resetPassword = async (req: Request, res: Response) => {
     try {
       const { token, password, confirm_password } = req.body;
 
