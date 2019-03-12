@@ -1,6 +1,6 @@
 # Node API | TypeScript Boilerplate
 
-## 1. Install Dependencies``
+## 1. Install Dependencies
 
 ```
 npm i
