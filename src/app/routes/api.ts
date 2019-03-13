@@ -1,21 +1,23 @@
 import { Router } from "express";
 
 import { plural } from "pluralize";
-import { getDirectories } from "../utils/functions.utils";
+import { getDirectories } from "nodeapi-cruds";
 import { resolve } from "path";
 import { existsSync } from "fs";
+import { Routing } from "nodeapi-cruds";
 
-export class ApiRouter {
+export class ApiRouter extends Routing {
   router: Router = Router();
-  exceptRoutes: string[] = ["auth"];
+  exceptModules: string[] = ["auth"];
 
   constructor() {
+    super();
     this.init();
   }
 
   init(): void {
     let modules = getDirectories(resolve("src/app/modules"));
-    modules = modules.filter(module => this.exceptRoutes.indexOf(module) < 0);
+    modules = modules.filter(module => this.exceptModules.indexOf(module) < 0);
 
     modules.forEach(module => {
       if (existsSync(resolve(`src/app/modules/${module}/${module}.router.ts`))) {

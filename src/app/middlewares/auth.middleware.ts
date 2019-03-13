@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
+import { ControllerReturns } from "nodeapi-cruds";
 import { verify } from "jsonwebtoken";
 import jwt from "../utils/jwt";
 import User from "../modules/user/user.model";
-import ControllerReturns from "../common/ControllerReturns";
 
 export class AuthMiddleware extends ControllerReturns {
 

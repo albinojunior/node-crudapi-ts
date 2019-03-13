@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Controller from "../../common/Controller";
+import { Controller } from "nodeapi-cruds";
 import { compare, hash } from "bcryptjs";
 import User from "../user/user.model";
 import AuthService from "./auth.service";

@@ -1,18 +1,15 @@
 import controller from "./user.controller";
-import Resource from "../../common/Resource";
-import Controller from "../../common/Controller";
+import { Controller, Routing } from "nodeapi-cruds";
 import { Router } from "express";
 
-export class UserRouter {
+export class UserRouter extends Routing {
   router: Router = Router();
   controller: Controller = controller;
+  exceptRoutes: string[] = [];
 
   constructor() {
-    this.init();
-  }
-
-  init(): void {
-    this.router = Resource.create(this.router, this.controller);
+    super();
+    this.createResource();
   }
 
 }

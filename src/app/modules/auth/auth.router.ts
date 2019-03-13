@@ -1,12 +1,14 @@
 import controller from "./auth.controller";
 import { Router } from "express";
+import { Routing } from "nodeapi-cruds";
 
-export class AuthRouter {
+export class AuthRouter extends Routing {
 
   controller: any = controller;
   router: Router = Router();
 
   constructor() {
+    super();
     this.init();
   }
 
@@ -19,3 +21,4 @@ export class AuthRouter {
 }
 
 export default new AuthRouter().router;
+
