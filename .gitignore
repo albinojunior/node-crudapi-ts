@@ -8,3 +8,5 @@ temp/
 .npm
 package-lock.json
 dist/
+src/database/migration-metadata.json
+src/database/seeder-metadata.json

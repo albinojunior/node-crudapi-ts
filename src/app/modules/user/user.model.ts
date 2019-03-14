@@ -11,7 +11,7 @@ import {
   Table
 } from "sequelize-typescript";
 import { defaultScope, scopes } from "./user.scopes";
-import { hash } from "bcryptjs";
+import { hashSync } from "bcryptjs";
 
 const EMAIL_REGEX = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$|^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
 
@@ -48,7 +48,7 @@ export default class User extends Model<User> {
   reset_password_expires: Date;
 
   @BeforeCreate
-  static async hashPassword(user: User) {
-    user.password = await hash(user.password, 10);
+  static hashPassword(user: User) {
+    user.password = hashSync(user.password, 10);
   }
 }

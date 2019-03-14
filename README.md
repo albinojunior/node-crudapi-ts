@@ -11,25 +11,7 @@ npm i -g typescript
 ```
 
 ```
-npm i -g db-migrate
-```
-
-- MySQL databases
-
-```
-npm i db-migrate-mysql mysql2 --save
-```
-
-- Postgres databases
-
-```
-npm i db-migrate-pg pg pg-hstore --save
-```
-
-- SQLite databases
-
-```
-npm i db-migrate-sqlite3 sqlite3 --save
+npm i -g sequelize-cli
 ```
 
 ## 2. Environments
@@ -42,21 +24,42 @@ cp .env.example .env
 
 ## 3. Database
 
-### 3.1 Migrations
+### 3.1 Creating Migrations
 ```
 npm run create-migration -- MIGRATION_NAME
 ```
+or
+```
+sequelize migration:create --name MIGRATION_NAME
+```
 
-### 3.1 Running Migrations
+### 3.2 Running Migrations
 
-- DEV
 ```
 npm run migrate
 ```
-
-- PROD
+or
 ```
-npm run migrate:prod
+sequelize db:migrate
+```
+
+### 3.3 Creating Seeds
+```
+npm run create-seed -- SEED_NAME
+```
+or
+```
+sequelize seed:create --name SEED_NAME
+```
+
+### 3.4 Running Seeds
+
+```
+npm run seed
+```
+or
+```
+sequelize db:seed:all
 ```
 
 ## 4. Run Project

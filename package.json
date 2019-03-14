@@ -22,14 +22,12 @@
     "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
     "crypto-js": "^3.1.9-1",
-    "db-migrate-mysql": "^1.1.10",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "http": "0.0.0",
     "jsonwebtoken": "^8.4.0",
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
-    "mysql2": "^1.6.5",
     "nodeapi-cruds": "1.0.5",
     "nodemailer": "^5.1.1",
     "nodemailer-express-handlebars": "^3.0.0",
@@ -56,9 +54,10 @@
     "poststart": "tsc -w",
     "stop": "pm2 delete all",
     "build": "tsc",
-    "start:prod": "sudo rm -rf dist && sudo npm run build && npm run migrate:prod && sudo pm2 start ecosystem.config.js && sudo pm2 log",
-    "create-migration": "db-migrate create -m ./src/database/migrations",
-    "migrate": "db-migrate up -m ./src/database/migrations",
-    "migrate:prod": "db-migrate -e prod -m ./src/database/migrations"
+    "start:prod": "sudo rm -rf dist && sudo npm run build && npm run migrate && sudo pm2 start ecosystem.config.js && sudo pm2 log",
+    "create-migration": "sequelize migration:create --name",
+    "create-seed": "sequelize seed:create --name",
+    "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all"
   }
 }
