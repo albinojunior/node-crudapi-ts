@@ -1,5 +1,5 @@
 import User from "./user.model";
-import { Service } from "nodeapi-cruds";
+import { Service } from "nodeapi-cruds-ts";
 
 class UserService extends Service {
 

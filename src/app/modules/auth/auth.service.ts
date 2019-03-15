@@ -1,5 +1,5 @@
 import User from "../user/user.model";
-import { Service } from "nodeapi-cruds";
+import { Service } from "nodeapi-cruds-ts";
 import mailer from "../../utils/mailer";
 import { sign } from "jsonwebtoken";
 import cfg from "../../utils/jwt";

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ControllerReturns } from "nodeapi-cruds";
+import { ControllerReturns } from "nodeapi-cruds-ts";
 import { verify } from "jsonwebtoken";
 import jwt from "../utils/jwt";
 import User from "../modules/user/user.model";

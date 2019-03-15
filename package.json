@@ -29,7 +29,7 @@
     "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "mysql2": "^1.6.5",
-    "nodeapi-cruds": "0.0.1",
+    "nodeapi-cruds-ts": "^1.0.1",
     "nodemailer": "^5.1.1",
     "nodemailer-express-handlebars": "^3.0.0",
     "passport-jwt": "^4.0.0",

@@ -1,6 +1,6 @@
 import controller from "./auth.controller";
 import { Router } from "express";
-import { Routing } from "nodeapi-cruds";
+import { Routing } from "nodeapi-cruds-ts";
 
 export class AuthRouter extends Routing {
 

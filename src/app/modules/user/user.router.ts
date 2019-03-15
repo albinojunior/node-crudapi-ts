@@ -1,5 +1,5 @@
 import controller from "./user.controller";
-import { Controller, Routing } from "nodeapi-cruds";
+import { Controller, Routing } from "nodeapi-cruds-ts";
 import { Router } from "express";
 
 export class UserRouter extends Routing {

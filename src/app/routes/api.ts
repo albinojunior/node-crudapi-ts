@@ -1,10 +1,10 @@
 import { Router } from "express";
 
 import { plural } from "pluralize";
-import { getDirectories } from "nodeapi-cruds";
+import { getDirectories } from "nodeapi-cruds-ts";
 import { resolve } from "path";
 import { existsSync } from "fs";
-import { Routing } from "nodeapi-cruds";
+import { Routing } from "nodeapi-cruds-ts";
 
 export class ApiRouter extends Routing {
   router: Router = Router();
