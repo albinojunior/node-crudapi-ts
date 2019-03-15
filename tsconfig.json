@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
@@ -12,6 +11,7 @@
     "sourceRoot": "src",
     "noEmitHelpers": false,
     "strict": true,
+    "allowJs": true,
     "strictPropertyInitialization": false,
     "target": "es6",
     "lib": [
@@ -22,6 +22,7 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "package*.json"
   ]
 }

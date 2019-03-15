@@ -4,7 +4,7 @@ const { DB_HOST, DB_NAME, DB_DRIVER, DB_USER, DB_PASSWORD } = process.env;
 
 const defaultConfig = {
   url: `${DB_DRIVER}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-  modelPaths: [resolve("./src/app/modules/**/*.model.ts")]
+  modelPaths: [resolve("./dist/src/app/modules/**/*.model.js")]
 };
 
 const storageConfig = {
