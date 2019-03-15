@@ -11,13 +11,6 @@ class App {
   express: express.Application;
   connection: Sequelize;
 
-  constructor() {
-    this.express = express();
-    this.database();
-    this.middleware();
-    this.routes();
-  }
-
   private middleware = (): void => {
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
@@ -30,6 +23,14 @@ class App {
 
   private database = (): void => {
     this.connection = new Database().connection;
+    console.log("Connection successful on database:", this.connection.connectionManager.config.database);
+  };
+
+  constructor() {
+    this.express = express();
+    this.database();
+    this.middleware();
+    this.routes();
   }
 
 }

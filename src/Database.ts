@@ -1,10 +1,10 @@
-import { Sequelize } from "sequelize-typescript";
+import { ISequelizeConfig, Sequelize } from "sequelize-typescript";
 
 const config = require("./config/database");
 const env = process.env.NODE_ENV || 'development';
 
 export default class Database {
-  config: any = config[env];
+  config: ISequelizeConfig = config[env];
   connection: Sequelize;
 
   constructor() {

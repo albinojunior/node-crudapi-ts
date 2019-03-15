@@ -5,7 +5,7 @@ const env = NODE_ENV || "development";
 
 const defaultConfig = {
   url: `${DB_DRIVER}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
-  modelPaths: [resolve("./dist/app/modules/**/*.model.js")]
+  modelPaths: [resolve("./dist/src/app/modules/**/*.model.js")]
 };
 
 const storageConfig = {
