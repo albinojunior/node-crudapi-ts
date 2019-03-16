@@ -1,15 +1,4 @@
-import {
-  AutoIncrement,
-  BeforeCreate,
-  Column,
-  DataType,
-  DefaultScope,
-  Is,
-  Model,
-  PrimaryKey,
-  Scopes,
-  Table
-} from "sequelize-typescript";
+import { BeforeCreate, Column, DataType, DefaultScope, Is, Model, Scopes, Table } from "sequelize-typescript";
 import { defaultScope, scopes } from "./user.scopes";
 import { hashSync } from "bcryptjs";
 
@@ -25,11 +14,6 @@ const EMAIL_REGEX = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$|^[a-z0-9.]+@[a-z0
   deletedAt: 'deleted_at'
 })
 export default class User extends Model<User> {
-
-  @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  id: number;
 
   @Column(DataType.TEXT)
   name: string;

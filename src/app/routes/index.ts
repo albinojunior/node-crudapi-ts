@@ -14,7 +14,7 @@ export class IndexRouter {
   }
 
   init(): void {
-    this.router.use('/api', authMiddleware.verifyAuth, ApiRouter);
+    this.router.use('/api', ApiRouter);
     this.router.use('/auth', AuthRouter);
 
     this.router.all('/', (req: any, res: any) => {

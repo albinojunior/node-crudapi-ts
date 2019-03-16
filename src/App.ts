@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
+import chalk from "chalk";
 
 import * as express from 'express';
 import * as logger from 'morgan';
@@ -23,7 +24,6 @@ class App {
 
   private database = (): void => {
     this.connection = new Database().connection;
-    console.log("Connection successful on database:", this.connection.connectionManager.config.database);
   };
 
   constructor() {
