@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize-typescript";
-import chalk from "chalk";
 
 import * as express from 'express';
 import * as logger from 'morgan';
@@ -26,10 +25,20 @@ class App {
     this.connection = new Database().connection;
   };
 
+  private cors = (): void => {
+    this.express.use(function (req: any, res: any, next) {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+      next();
+    });
+  };
+
   constructor() {
     this.express = express();
     this.database();
     this.middleware();
+    this.cors();
     this.routes();
   }
 
