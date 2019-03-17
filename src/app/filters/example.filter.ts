@@ -4,8 +4,8 @@ import { Op } from "sequelize";
 class ExampleFilter implements Filter {
 
   execute(where: any, model: any, options: any): any {
-    if (options.query.hasOwnProperty('id') && options.query.id) {
-      const { id } = options.query;
+    if (options.hasOwnProperty('id')) {
+      const { id } = options;
       where[Op.and].push({ id })
     }
 
