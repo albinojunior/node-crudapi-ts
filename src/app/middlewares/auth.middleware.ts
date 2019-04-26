@@ -46,8 +46,6 @@ export class AuthMiddleware extends ControllerReturns {
    * @param next
    */
   verifyAuth = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
-    if (req.method == 'OPTIONS') return next();
-
     try {
       const authUser = await this.getAuthUser(req);
 
