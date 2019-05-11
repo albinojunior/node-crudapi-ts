@@ -77,6 +77,4 @@ npm start:prod
 
 ## 5. Docs
 
-- sequelize-typescript: https://github.com/RobinBuschmann/sequelize-typescript
-
 - db-migrate: https://db-migrate.readthedocs.io/en/latest/

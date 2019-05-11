@@ -1,0 +1,10 @@
+{
+    "name": "gowdock-api-dev",
+    "script": "sucrase-node",
+    "watch": ["./"],
+    "log_date_format": "YYYY-MM-DD HH:mm:ss",
+    "args": [
+      "src/server.ts",
+      "--color"
+    ]
+  }

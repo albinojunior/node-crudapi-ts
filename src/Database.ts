@@ -1,31 +1,51 @@
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize";
 import chalk from "chalk";
 
-const config = require("./config/database");
-const env = process.env.NODE_ENV || 'development';
+import * as config from "./../config/database";
+
+const env = process.env.NODE_ENV || "development";
 
 export default class Database {
-  config: any = config[env];
-  connection: Sequelize;
+  public config: any = config[env];
+  public sequelize: Sequelize;
 
-  constructor() {
+  public constructor() {
     this.connect();
     this.verifyConnection();
   }
 
-  connect = (): void => {
-    this.connection = new Sequelize(this.config);
-    this.connection.addModels(this.config.modelPaths || []);
+  public connect = (): void => {
+    this.sequelize = new Sequelize(this.config);
   };
 
-  verifyConnection = (): void => {
-    this.connection.authenticate()
-      .then(() => {
-        console.log(chalk.bgWhiteBright(chalk.green(`Connection successful on database: ${this.connection.config.database}`)));
-      })
-      .catch((error) => {
-        console.log(chalk.bgRed(chalk.black(`Connection failed on database: ${this.connection.config.database}, ${error.message}`)));
-      });
-  }
-
+  public verifyConnection = (): void => {
+    this.sequelize
+      .authenticate()
+      .then(
+        (): void => {
+          console.log(
+            chalk.bgWhiteBright(
+              chalk.green(
+                `Connection successful on database: ${
+                  this.sequelize.config.database
+                }`
+              )
+            )
+          );
+        }
+      )
+      .catch(
+        (error): void => {
+          console.log(
+            chalk.bgRed(
+              chalk.black(
+                `Connection failed on database: ${
+                  this.sequelize.config.database
+                }, ${error.message}`
+              )
+            )
+          );
+        }
+      );
+  };
 }
