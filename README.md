@@ -185,7 +185,7 @@ $ npm build:dev
 #### PROD
 
 ```bash
-$ npm build:dev
+$ npm build
 ```
 
 
