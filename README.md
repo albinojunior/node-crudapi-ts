@@ -1,7 +1,7 @@
-# Node CrudsAPI | TypeScript
+# CrudsAPI Node + TypeScript
 - A Node API boilerplate for create CRUDS written in TypeScript
 
-- [1.  Installing](#1--installing)
+- [1.  Installing](#1-installing)
   - [Install dependencies](#install-dependencies)
   - [Installing pm2](#installing-pm2)
   - [Environments](#environments)
