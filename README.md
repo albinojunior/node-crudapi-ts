@@ -10,12 +10,12 @@
 - [2. Database](#2-database)
   - [Install database driver](#install-database-driver)
   - [Database Config](#database-config)
-  - [Migrations and Seeds](#migrations-and-seeds)
-  - [Creating Migrations](#creating-migrations)
-  - [Running Migrations](#running-migrations)
-  - [Creating Seeds](#creating-seeds)
-  - [Running Seeds](#running-seeds)
-- [3.  Schedules](#3--schedules)
+  - [Migrations and Seeders](#migrations-and-seeders)
+  - [Creating Migration](#creating-migration)
+  - [Running Migration](#running-migration)
+  - [Creating Seed](#creating-seed)
+  - [Running Seed](#running-seed)
+- [3.  Schedules](#3-schedules)
   - [Installing](#installing)
   - [Configuring](#configuring)
 - [4. Running](#4-running)
@@ -74,14 +74,14 @@ Setting config database connection on config file:  `config/database.js`
 ***if you will not use migrations or seeds this config  can be created with ".ts" extension**
 [more config details](http://docs.sequelizejs.com/manual/getting-started.html)
 
-#### Migrations and Seeds
+#### Migrations and Seeders
 - For implements migrations or seeds install sequelize-cli module:
 
 ```bash
 $ npm i -g sequelize-cli
 ```
 
-- Create `database/seeds` and/or  `database/migrations` folder
+- Create `database/seeders` and/or  `database/migrations` folder
 *OBS: You can create seeds or migrations folders individually*
 
 - Create a `.sequeilizerc` and paste follow code:
@@ -89,30 +89,30 @@ $ npm i -g sequelize-cli
 ```
 module.exports = {
   "config": "./config/database.js", //database config file reference
-  "seeders-path": "./database/seeds", //remove if you don't use seeds
+  "seeders-path": "./database/seeders", //remove if you don't use seeders
   "migrations-path": "./database/migrations" //remove if you don't use migrations
 };
 ```
 
-#### Creating Migrations
+#### Creating Migration
 
 ```bash
 $ sequelize migration:create --name MIGRATION_NAME
 ```
 
-#### Running Migrations
+#### Running Migration
 
 ```bash
 $ sequelize db:migrate
 ```
 
-#### Creating Seeds
+#### Creating Seed
 
 ```bash
 $ sequelize seed:create --name SEED_NAME
 ```
 
-#### Running Seeds
+#### Running Seed
 ```bash
 $ sequelize db:seed:all
 ```
