@@ -1,10 +1,9 @@
-import common from "../../common";
 import { Request, Response } from "express";
 import { compare, hash } from "bcryptjs";
 
+import HttpController from "../../common/controllers/http";
 import User from "../user/user.model";
 import AuthService from "./auth.service";
-const HttpController = common.getController("http");
 
 export class AuthController extends HttpController {
   public service = AuthService;
