@@ -134,7 +134,7 @@ $ npm i @types/node-schedule --save-dev
 
 - Create `src/schedule.ts` file ande paste follow code or copy from [example](https://github.com/albinojunior/nodeapi-typescript/blob/master/examples/schedule.example.ts)
 
-```
+```javascript
 /* src/schedule.ts */
 
 import { resolve } from "path";
