@@ -1,16 +1,39 @@
 # Node CrudsAPI | TypeScript
 - A Node API boilerplate for create CRUDS written in TypeScript
 
-[TOC]
+- [1.  Installing](#1--installing)
+  - [Install dependencies](#install-dependencies)
+  - [Installing pm2](#installing-pm2)
+  - [Environments](#environments)
+- [2. Database](#2-database)
+  - [Install database driver](#install-database-driver)
+  - [Database Config](#database-config)
+  - [Migrations and Seeds](#migrations-and-seeds)
+  - [Creating Migrations](#creating-migrations)
+  - [Running Migrations](#running-migrations)
+  - [Creating Seeds](#creating-seeds)
+  - [Running Seeds](#running-seeds)
+- [3.  Schedules](#3--schedules)
+  - [Installing](#installing)
+  - [Configuring](#configuring)
+- [4. Running](#4-running)
+- [5. Building](#5-building)
+  - [DEV](#dev)
+  - [PROD](#prod)
+- [6. Docs](#6-docs)
 
 ## 1.  Installing
 
 #### Install dependencies
 
-`$ npm i`
+```bash
+$ npm i
+```
 
 #### Installing pm2
-`$ npm i -g pm2`
+```bash
+$ npm i -g pm2
+```
 
 #### Environments
 
@@ -20,19 +43,29 @@ Copy `.env.example` to `.env` and set environments
 #### Install database driver
 
 - **PostgresSQL**
-`$ npm install --save pg pg-hstore `
+```bash
+$ npm install --save pg pg-hstore
+```
 
 - **MySQL**
-`$ npm install --save mysql2`
+```bash
+$ npm install --save mysql2
+```
 
 - **MariaDB**
-`$ npm install --save mariadb`
+```bash
+$ npm install --save mariadb
+```
 
 - **SQLite**
-`$ npm install --save sqlite3`
+```bash
+$ npm install --save sqlite3
+```
 
 - **SQL Server**
-`$ npm install --save tedious `
+```bash
+$ npm install --save tedious
+```
 
 #### Database Config
 Setting config database connection on config file:  `config/database.js`
@@ -42,7 +75,9 @@ Setting config database connection on config file:  `config/database.js`
 #### Migrations and Seeds
 - For implements migrations or seeds install sequelize-cli module:
 
-`$ npm i -g sequelize-cli`
+```bash
+$ npm i -g sequelize-cli
+```
 
 - Create `database/seeds` and/or  `database/migrations` folder
 *OBS: You can create seeds or migrations folders individually*
@@ -59,28 +94,39 @@ module.exports = {
 
 #### Creating Migrations
 
-`$ sequelize migration:create --name MIGRATION_NAME`
+```bash
+$ sequelize migration:create --name MIGRATION_NAME
+```
 
 #### Running Migrations
 
-`$ sequelize db:migrate`
+```bash
+$ sequelize db:migrate
+```
 
 #### Creating Seeds
 
-`$ sequelize seed:create --name SEED_NAME`
+```bash
+$ sequelize seed:create --name SEED_NAME
+```
 
 #### Running Seeds
-
-`$ sequelize db:seed:all`
+```bash
+$ sequelize db:seed:all
+```
 
 
 ## 3.  Schedules
 #### Installing
 - For implements Schedules install node-schedule module:
 
-`$ npm i node-schedule --save`
+```bash
+$ npm i node-schedule --save
+```
 
-`$ npm i @types/node-schedule --save-dev`
+```bash
+$ npm i @types/node-schedule --save-dev
+```
 
 #### Configuring
 
@@ -124,21 +170,25 @@ export default class Schedule {
 
 ##  4. Running
 
-`$ npm run dev`
+```bash
+$ npm run dev
+```
 
 ## 5. Building
 
 #### DEV
 
-`$ npm build:dev`
+```bash
+$ npm build:dev
+```
 
 #### PROD
 
-`$ npm build:dev
+```bash
+$ npm build:dev
+```
 
-`
 
-
-## Docs
+## 6. Docs
 
 - [Sequelize](http://docs.sequelizejs.com/)
