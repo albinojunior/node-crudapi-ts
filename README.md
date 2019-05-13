@@ -1,5 +1,12 @@
-# CrudsAPI Node + TypeScript
-- A Node API boilerplate for create CRUDS written in TypeScript
+<h1 align="center">CrudAPI Node | TypeScript</h1>
+<p align="center">CRUD boilerplate for create <a href="http://nodejs.org" target="blank">Node </a> Restful API's  with <a href="https://expressjs.com/" target="blank">Express Framework</a> and <a href="https://docs.sequelizejs.com" target="blank">Sequelize ORM</a> written in <a href="https://www.typescriptlang.org/" target="blank">Typescript</a>.</p>
+<p align="center">
+
+<p align="center">
+<a href="https://www.npmjs.com/nodeapi-cruds-ts"><img src="https://img.shields.io/npm/v/nodeapi-cruds-ts.svg?style=for-the-badge&logo=npm" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/nodeapi-cruds-ts"><img src="https://img.shields.io/node/v/nodeapi-cruds-ts.svg?logo=node.js&style=for-the-badge" alt="Node" /></a>
+<a href="https://www.npmjs.com/nodeapi-cruds-ts"><img src="https://img.shields.io/npm/types/nodeapi-cruds-ts.svg?style=for-the-badge&logo=typescript" alt="Language" /></a>
+</p>
 
 - [1.  Installing](#1-installing)
   - [Install dependencies](#install-dependencies)
