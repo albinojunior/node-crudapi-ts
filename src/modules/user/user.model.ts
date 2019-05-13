@@ -8,12 +8,13 @@ export default class User extends TimestampsModel {
   public id!: number;
   public email!: string;
   public password!: string;
+  public reset_password_token!: string;
   public reset_password_expires!: Date;
 }
 
 const userHooks = {
   beforeCreate: (user): void => {
-    user.password = hashSync(user.password, 10)
+    user.password = hashSync(user.password, 10);
   }
 };
 
@@ -34,6 +35,10 @@ export const userAttributes = {
   password: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  reset_password_token: {
+    type: DataTypes.STRING,
+    allowNull: true
   },
   reset_password_expires: {
     type: DataTypes.DATE,

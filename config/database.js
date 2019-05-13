@@ -1,7 +1,5 @@
-import * as dotenv from "dotenv";
-
 //INIT ENVIRONMENT VARS
-dotenv.config();
+require("dotenv").config();
 
 const {
   DB_HOST,
@@ -31,7 +29,7 @@ const defaultConfig = {
 };
 
 /* UNCOMMENT THIS BLOCK CODE TO IMPLEMENTS MIGRATIONS and SEEDS */
-/*
+// /*
 const storageConfig = {
   migrationStorage: "json",
   migrationStoragePath: "./database/migration-metadata.json",
@@ -39,14 +37,13 @@ const storageConfig = {
   seederStoragePath: "./database/seeder-metadata.json"
 };
 
-exports.config = {
+module.exports = {
   [env]: { ...defaultConfig, ...storageConfig }
 };
-*/
+// */
 
 /* REMOVE THIS CODE TO IMPLEMENTS MIGRATIONS and SEEDS */
-const config = {
-  [env]: defaultConfig
-};
+// exports.config = {
+//   [env]: defaultConfig
+// };
 
-export default config;
