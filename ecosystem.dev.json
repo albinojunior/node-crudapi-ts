@@ -1,8 +1,0 @@
-
-{
-    "name": "node-crudapi-dev",
-    "script": "sucrase-node",
-    "watch": ["./src/"],
-    "log_date_format": "DD/MM/YY HH:mm:ss",
-    "args": ["src/server.ts", "--color"]
-  }

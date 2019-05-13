@@ -54,13 +54,13 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
-    "dev": "pm2 start ecosystem.dev.json && pm2 log",
-    "stop": "pm2 delete all",
+    "dev": "pm2 start sucrase-node --name node-crudapi-dev -- ./src/server.ts --color=true && pm2 log",
     "prebuild:dev": "rm -rf build",
     "build:dev": "tsc",
-    "postbuild:dev": "pm2 start ecosystem.prod.json && pm2 log",
-    "prebuild": "sudo pm2 delete all && sudo  rm -rf build",
+    "postbuild:dev": "pm2 start ecosystem.config.json && pm2 log",
+    "prebuild": "sudo  rm -rf build",
     "build": "sudo tsc",
-    "postbuild": "sudo pm2 start ecosystem.prod.json && sudo pm2 log"
+    "postbuild": "sudo pm2 start ecosystem.config.json && sudo pm2 log",
+    "stop": "pm2 delete all"
   }
 }

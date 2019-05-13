@@ -1,0 +1,11 @@
+{
+  "name": "node-crudapi",
+  "script": "build/src/server.js",
+  "log_date_format": "DD/MM/YY HH:mm:ss",
+  "args": ["--color"],
+  "watch": ["./src/"],
+  "env": {
+    "NODE_ENV": "production",
+    "APP_PORT": 4000
+  }
+}
