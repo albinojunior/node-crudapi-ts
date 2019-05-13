@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "resolveJsonModule": true,
     "isolatedModules": false,
+    "allowSyntheticDefaultImports": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist",
-    "sourceMap": true,
-    "sourceRoot": "src",
+    "outDir": "build",
+    "noImplicitAny": false,
     "noEmitHelpers": false,
+    "declaration": false,
     "strict": true,
     "allowJs": true,
     "strictPropertyInitialization": false,
@@ -22,7 +21,9 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "build",
+    "database",
+    "examples"
   ],
-  "include": ["src"]
+  "include": ["src", "config"]
 }

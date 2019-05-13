@@ -1,31 +1,64 @@
-import { Sequelize } from "sequelize-typescript";
-import chalk from "chalk";
+import { Sequelize, Error } from "sequelize";
 
-const config = require("./config/database");
-const env = process.env.NODE_ENV || 'development';
+import config from "../config/database";
+import { getDirectories } from "./common/utils/functions";
+import { resolve } from "path";
+import { readdirSync } from "fs";
+
+const env = process.env.NODE_ENV || "development";
 
 export default class Database {
-  config: any = config[env];
-  connection: Sequelize;
+  public config: any = config[env];
+  public sequelize: Sequelize;
 
-  constructor() {
+  public constructor() {
     this.connect();
     this.verifyConnection();
+    this.initModels();
   }
 
-  connect = (): void => {
-    this.connection = new Sequelize(this.config);
-    this.connection.addModels(this.config.modelPaths || []);
-  };
-
-  verifyConnection = (): void => {
-    this.connection.authenticate()
-      .then(() => {
-        console.log(chalk.bgWhiteBright(chalk.green(`Connection successful on database: ${this.connection.config.database}`)));
-      })
-      .catch((error) => {
-        console.log(chalk.bgRed(chalk.black(`Connection failed on database: ${this.connection.config.database}, ${error.message}`)));
-      });
+  public connect(): void {
+    this.sequelize = new Sequelize(this.config);
   }
 
+  public initModels(): void {
+    const prefix = env == "development" ? "" : "build/";
+    let modules = getDirectories(resolve(`${prefix}src/modules`));
+    modules.forEach(
+      (module): void => {
+        const dir = `${prefix}src/modules/${module}`;
+        readdirSync(resolve(dir)).forEach(
+          async (filename): Promise<void> => {
+            if (/.*.model/.test(filename)) {
+              const model = await import(`./modules/${module}/${filename}`);
+              model.init(this.sequelize);
+            }
+          }
+        );
+      }
+    );
+  }
+
+  public verifyConnection(): void {
+    this.sequelize
+      .authenticate()
+      .then(
+        (): void => {
+          console.log(
+            `Connection successful on database: ${
+              this.sequelize.config.database
+            }`
+          );
+        }
+      )
+      .catch(
+        (error: Error): void => {
+          console.log(
+            `Connection failed on database: ${
+              this.sequelize.config.database
+            }, ${error.message}`
+          );
+        }
+      );
+  }
 }
