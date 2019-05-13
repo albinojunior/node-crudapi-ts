@@ -1,8 +1,7 @@
 import controller from "./auth.controller";
 import { Router } from "express";
-import { Route } from "../../common/classes/route.interface";
 
-export class AuthRouter implements Route {
+export class AuthRouter {
   public controller = controller;
   public router: Router = Router();
 

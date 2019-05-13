@@ -1,8 +1,10 @@
-import { HttpController } from "../../common/controllers/http";
+import common from "../../common";
 import { Request, Response } from "express";
 import { compare, hash } from "bcryptjs";
+
 import User from "../user/user.model";
 import AuthService from "./auth.service";
+const HttpController = common.getController("http");
 
 export class AuthController extends HttpController {
   public service = AuthService;
@@ -47,7 +49,7 @@ export class AuthController extends HttpController {
       if (!user) return this.returnBadRequest(res, "Usuário inválido!");
 
       //creating reset token
-      const resetToken = await this.service.createResetToken(email);
+      // const resetToken = await this.service.createResetToken(email);
 
       //sending email
       // await this.service.sendForgotPasswordEmail(email, resetToken);

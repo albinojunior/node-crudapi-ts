@@ -1,3 +1,5 @@
+
+/* path: src/schedule.ts
 import { resolve } from "path";
 import { scheduleJob } from "node-schedule";
 import * as fs from "fs";
@@ -12,19 +14,16 @@ export default class Schedule {
 
   public getJobs = (): void => {
     const path = resolve("src/jobs");
-    let files = fs
-      .readdirSync(path)
-      .filter((filename: string): boolean => /.*\.job.*/i.test(filename))
-      .map((filename: string): string => filename.replace(/\.ts/, ".js"));
-
+    let files = fs.readdirSync(path);
     this.jobs = files.map((file): Job => require(`./src/jobs/${file}`));
   };
 
   public startJobs = (): void => {
-    if (!process.env.DISABLE_SCHEDULE) {
-      this.jobs.map((job: Job): void => {
-        if (job.enabled) scheduleJob(job.date, async (): Promise<void> => await job.execute());
-      });
-    }
+    this.jobs.map(
+      (job: Job): void => {
+        if (job.enabled)
+          scheduleJob(job.date, async (): Promise<void> => await job.execute());
+      }
+    );
   };
 }

@@ -1,11 +1,11 @@
-import { HttpController } from "..";
 import { Router } from "express";
 import { Resource } from "./resource";
+import CrudController from "../controllers/crud";
 
 export abstract class CrudRoute {
   abstract router: Router;
-  abstract controller: HttpController;
-  public exceptRoutes?: string[];
+  abstract controller: CrudController;
+  public exceptRoutes?: string[] = [];
   public createResource?: boolean = true;
 
   public init(): void {

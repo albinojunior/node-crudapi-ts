@@ -1,32 +1,34 @@
-import { Op } from 'sequelize';
-import { Filter } from "../interfaces/filter";
-import { isNumberType } from "../utils/functions";
+import { Op, WhereOptions } from "sequelize";
+import { Filter } from "../classes/filter";
+import { isNumberType, isDateType } from "../utils/functions";
 
-export class SearchFilter implements Filter {
-  private exceptFields: string[] = ['created_at', 'updated_at', 'deleted_at'];
+class SearchFilter extends Filter {
+  public execute(where: WhereOptions, model: any, options: any): any {
+    if (options.hasOwnProperty("search") && options.search.length) {
+      const attributes: any = model.rawAttributes;
+      const fields: any[] = [];
 
-  execute(where: any, model: any, options: any): any {
-    if (options.hasOwnProperty("search")) {
-      where[Op.and].push({
-        [Op.or]: Object.keys(model.rawAttributes)
-          .map((field: string) => {
-            if (!this.exceptFields.includes(field)) {
-              const stringValue = `%${options.search}%`;
-              const numberValue = Number(options.search);
+      for (let field in attributes) {
+        if (isDateType(attributes[field].type)) continue;
+        const stringValue = `%${options.search}%`;
+        const numberValue = Number(options.search);
+        const isNumber = isNumberType(attributes[field].type) && numberValue;
+        const OP = isNumber ? Op.eq : Op.like;
+        fields.push({
+          [field]: {
+            [OP]: isNumber ? numberValue : stringValue
+          }
+        });
+      }
 
-              const isNumber = isNumberType(model.rawAttributes[field].type) && numberValue;
-              const OP = isNumber ? Op.eq : Op.like;
-
-              return {
-                [field]: {
-                  [OP]: isNumber ? numberValue : stringValue
-                }
-              }
-            }
-          })
-      });
+      where = {
+        ...where,
+        [Op.and]: [...[Op.and], ...[{ [Op.or]: fields }]]
+      };
     }
 
     return where;
   }
 }
+
+export default new SearchFilter();

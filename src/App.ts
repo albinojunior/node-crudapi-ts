@@ -1,43 +1,49 @@
 import { Sequelize } from "sequelize";
 
-import express from "express";
-import cors from "cors";
-import logger from "morgan";
+import express = require("express");
+import cors = require("cors");
+import logger = require("morgan");
 
 import Database from "./database";
-import Schedule from "./schedule";
-import IndexRouter from "./routes";
+import { IndexRoute } from "./routes";
 
 class App {
   public express: express.Application;
   public sequelize: Sequelize;
-  public schedule: Schedule;
 
-  private database = (): void => {
-    this.sequelize = new Database().sequelize;
-  };
-
-  private middleware = (): void => {
-    this.express.use(logger("dev"));
-    this.express.use(cors());
-  };
-
-  private routes = (): void => {
-    this.express.use("/", new IndexRouter().router);
-  };
-
-  private jobs = (): void => {
-    this.schedule = new Schedule();
-    this.schedule.startJobs();
-  };
+  /* uncomment this line to instance and enable jobs */
+  // public schedule: Schedule;
 
   public constructor() {
     this.express = express();
     this.database();
-    this.middleware();
+    this.middlewares();
     this.routes();
-    this.jobs();
-  }
-}
 
+    /* uncomment this call to enable jobs */
+    /* if (!process.env.DISABLE_SCHEDULE) this.jobs(); */
+  }
+
+  private database(): void {
+    this.sequelize = new Database().sequelize;
+  }
+
+  private middlewares(): void {
+    this.express.use(logger("dev"));
+    this.express.use(express.json());
+    this.express.use(cors());
+  }
+
+  private routes(): void {
+    this.express.use("/", new IndexRoute().router);
+  }
+
+  /* uncomment this method to enable jobs */
+  /*
+    private jobs = (): void => {
+      this.schedule = new Schedule();
+      this.schedule.startJobs();
+    };
+  */
+}
 export default new App().express;

@@ -2,7 +2,7 @@ import { Response } from "express";
 import { ExceptionHandler } from "../handlers/exception";
 import { HTTP } from "../constants/http";
 
-export abstract class HttpController extends ExceptionHandler {
+export default abstract class HttpController extends ExceptionHandler {
   /**
    * @param res
    * @param data
@@ -138,7 +138,7 @@ export abstract class HttpController extends ExceptionHandler {
    * @param error
    */
   public processException = (res: Response, error: any): Response => {
-    const { statusCode, data } = this.parseErrors(error);
+    const { statusCode, data } = this.handleErrors(error);
     return this.returnData(res, data, statusCode);
   };
 }

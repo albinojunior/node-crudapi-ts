@@ -1,9 +1,6 @@
 {
-  "name": "gowdock-api",
+  "name": "node-crudapi",
   "script": "build/src/server.js",
-  "watch": ["./"],
-  "log_date_format": "YYYY-MM-DD HH:mm:ss",
-  "args": [
-    "--color"
-  ]
+  "log_date_format": "DD/MM/YY HH:mm:ss",
+  "args": ["--color"]
 }

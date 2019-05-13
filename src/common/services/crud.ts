@@ -1,10 +1,19 @@
-import { SearchFilter } from "../filters/search";
+import SearchFilter from "../filters/search";
+import { Filter } from "../classes/filter";
 import { Op } from "sequelize";
 
 export abstract class CrudService {
   abstract model: any;
   abstract modelName: string;
-  abstract filters: any[] = [];
+  private _filters: Filter[] = [SearchFilter];
+
+  public get filters(): Filter[] {
+    return this._filters;
+  }
+
+  public set filters(value) {
+    this._filters = [...this._filters, ...value];
+  }
 
   /**
    * Get method
@@ -12,7 +21,7 @@ export abstract class CrudService {
    * @param id
    * @param scope
    */
-  get = async (id: number, scope: any = "full"): Promise<any> => {
+  public get = async (id: number, scope: any = "full"): Promise<any> => {
     return await this.model.scope(scope).findByPk(id);
   };
 
@@ -22,7 +31,7 @@ export abstract class CrudService {
    * @param options
    * @param scope
    */
-  all = async (options: any, scope: any = "full"): Promise<any> => {
+  public all = async (options: any, scope: any = "full"): Promise<any> => {
     const where = await this.processFilters(options);
     const findOptions = await this.buildFindOptions(options);
     const data = await this.model
@@ -35,7 +44,7 @@ export abstract class CrudService {
   /**
    * List all method
    */
-  list = async (): Promise<any> => {
+  public list = async (): Promise<any> => {
     return await this.model.scope("list").findAll();
   };
 
@@ -44,7 +53,7 @@ export abstract class CrudService {
    *
    * @param object
    */
-  create = async (object: any): Promise<any> => {
+  public create = async (object: any): Promise<any> => {
     return await this.model.create(object);
   };
 
@@ -54,7 +63,7 @@ export abstract class CrudService {
    * @param data
    * @param id
    */
-  update = async (data: any, id: any): Promise<any> => {
+  public update = async (data: any, id: number | string): Promise<any> => {
     return await this.model.update(data, { where: { id }, sideEffects: false });
   };
 
@@ -64,7 +73,7 @@ export abstract class CrudService {
    * @param data
    * @param where
    */
-  updateWhere = async (data: any, where: any): Promise<any> => {
+  public updateWhere = async (data: any, where: any): Promise<any> => {
     return await this.model.update(data, { where });
   };
 
@@ -73,7 +82,7 @@ export abstract class CrudService {
    *
    * @param id
    */
-  delete = async (id: any): Promise<any> => {
+  public delete = async (id: any): Promise<any> => {
     return await this.model.destroy({ where: { id } });
   };
 
@@ -82,20 +91,19 @@ export abstract class CrudService {
    *
    * @param where
    */
-  deleteWhere = async (where: any): Promise<any> => {
+  public deleteWhere = async (where: any): Promise<any> => {
     return await this.model.destroy({ where });
   };
 
-  private processFilters = async (options: any) => {
-    let where = new SearchFilter().execute(
-      { [Op.and]: [] },
-      this.model,
-      options
-    );
+  public processFilters = async (options: any): Promise<any> => {
+    let where = {};
+    if (this._filters.length) where[Op.and] = [];
 
-    this.filters.forEach(filter => {
-      where = filter.execute(where, this.model, options);
-    });
+    this._filters.forEach(
+      (filter): any => {
+        where = filter.execute(where, this.model, options);
+      }
+    );
 
     return where;
   };
@@ -105,7 +113,7 @@ export abstract class CrudService {
    *
    * @param options
    */
-  private buildFindOptions = async (options: any) => {
+  public buildFindOptions = async (options: any): Promise<{}> => {
     const limit = parseInt(options.limit);
     const offset = (options.page - 1) * limit;
     const order = [[options.sort, options.order]];
@@ -119,7 +127,10 @@ export abstract class CrudService {
    * @param data
    * @param options
    */
-  private buildPaginationMetadata = async (data: any, options: any) => {
+  public buildPaginationMetadata = async (
+    data: any,
+    options: any
+  ): Promise<{}> => {
     const limit = parseInt(options.limit);
     const total = data.count / limit;
     const total_pages =

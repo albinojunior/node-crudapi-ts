@@ -1,16 +1,9 @@
 import { Request, Response } from "express";
 import { CrudService } from "../services/crud";
-import { HttpController } from "./http";
-import * as _ from "lodash";
+import { PaginateOptions } from "../interfaces/paginate-options";
+import HttpController from "./http";
 
-interface PaginateOptions {
-  limit: number | string;
-  page: number | string;
-  order: string;
-  sort: string;
-}
-
-export abstract class CrudController extends HttpController {
+export default abstract class CrudController extends HttpController {
   abstract service: CrudService;
 
   private _defaultFindOptions: PaginateOptions = {
@@ -155,15 +148,12 @@ export abstract class CrudController extends HttpController {
    */
   public buildOptions = async (query: any): Promise<{}> => {
     //clean query options
-    _.map(
-      query,
-      (value: string | number | null, key: number): void => {
-        if (value === "") delete query[key];
-      }
-    );
+    for (let key in query) {
+      if (query[key] === "") delete query[key];
+    }
 
     //merge default options
-    _.defaults(query, this.defaultFindOptions);
+    query = { ...query, ...this.defaultFindOptions };
 
     if (!["ASC", "DESC"].includes(query.order)) {
       query.order = "ASC";

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { verify } from "jsonwebtoken";
-import { HttpController } from "../common/controllers/http";
 import User from "../modules/user/user.model";
+import HttpController from "../common/controllers/http";
 
 const { APP_SECRET_KEY } = process.env;
 
@@ -12,12 +12,11 @@ export class AuthMiddleware extends HttpController {
    *
    * @param req
    */
-  public getTokenFromRequest = (req: Request): string | null => {
-    let token = req.headers.authorization
-      ? req.headers.authorization.split(" ")
-      : null;
-    return token && token.length ? token[1] : null;
-  };
+  public getTokenFromRequest(req: Request): string | null {
+    let authorization = req.header("authorization");
+    let token = authorization ? authorization.split(" ") : [];
+    return token.length ? token[1] : null;
+  }
 
   /**
    *

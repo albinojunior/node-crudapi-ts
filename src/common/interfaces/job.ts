@@ -1,5 +1,5 @@
 export declare interface Job {
   date: string;
   execute: Function;
-  enabled: Boolean;
+  enabled: boolean;
 }

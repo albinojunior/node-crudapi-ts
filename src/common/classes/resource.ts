@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { HttpController } from "../controllers/http";
+import CrudController from "../controllers/crud";
 
 export class Resource {
   /**
@@ -9,9 +9,9 @@ export class Resource {
    * @param controller
    * @param except
    */
-  static create(
+  public static create(
     router: Router,
-    controller: HttpController,
+    controller: CrudController,
     except: string[] = []
   ): Router {
     if (!except.includes("store")) router.post("/", controller.store);
