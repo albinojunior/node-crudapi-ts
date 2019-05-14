@@ -53,7 +53,7 @@
     "typescript": "^3.3.3333"
   },
   "scripts": {
-    "dev": "pm2 start sucrase-node --name node-crudapi-dev -- ./src/server.ts --color=true && pm2 log",
+    "dev": "pm2 start sucrase-node --name node-crudapi-dev -- ./src/server.ts --watch --color=true && pm2 log",
     "prebuild:dev": "rm -rf build",
     "build:dev": "tsc",
     "postbuild:dev": "pm2 start ecosystem.config.json && pm2 log",
