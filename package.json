@@ -1,6 +1,6 @@
 {
   "name": "node-crudapi-ts",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "A Node API Boilerplate for create CRUDS <https://github.com/albinojunior/node-crudapi-ts>",
   "main": "build/src/server.js",
   "types": "build/src/server.d.ts",

@@ -20,15 +20,8 @@ export class IndexRoute {
 
   public initRoutes(): void {
     this.initApi();
-
     this.router.use("/auth", AuthRouter);
-
-    this.router.all(
-      "/",
-      (req, res): void => {
-        res.send(`${name} ${version}`);
-      }
-    );
+    this.router.all("/", (req, res): any => res.send(`${name} ${version}`));
   }
 
   public initApi(): void {
@@ -42,7 +35,7 @@ export class IndexRoute {
         if (existsSync(resolve(`src/modules/${module}/${module}.router.ts`))) {
           this.router.use(
             `/api/${plural(module)}`,
-            // auth.verifyAuth,
+            auth.verifyAuth,
             require(`./modules/${module}/${module}.router`).default
           );
         }
