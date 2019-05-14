@@ -1,4 +1,4 @@
-<h1 align="center">CrudAPI Node | TypeScript</h1>
+<h1 align="center">Node CrudAPI Boilerplate | TypeScript</h1>
 <p align="center"><a href="http://nodejs.org" target="blank">Node</a> boilerplate for create CRUDs and restful API's with <a href="https://expressjs.com/" target="blank">Express Framework</a> and <a href="https://docs.sequelizejs.com" target="blank">Sequelize ORM</a> written in <a href="https://www.typescriptlang.org/" target="blank">Typescript</a>.</p>
 <p align="center">
 </p>
