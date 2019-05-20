@@ -181,13 +181,13 @@ $ npm run dev
 #### DEV
 
 ```bash
-$ npm build:dev
+$ npm run build:dev
 ```
 
 #### PROD
 
 ```bash
-$ npm build
+$ npm run build
 ```
 
 
