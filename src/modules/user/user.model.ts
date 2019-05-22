@@ -12,13 +12,13 @@ export default class User extends TimestampsModel {
   public reset_password_expires!: Date;
 }
 
-const userHooks = {
+const hooks = {
   beforeCreate: (user): void => {
     user.password = hashSync(user.password, 10);
   }
 };
 
-export const userAttributes = {
+export const attributes = {
   id: {
     type: DataTypes.INTEGER.UNSIGNED, // you can omit the `new` but this is discouraged
     autoIncrement: true,
@@ -47,12 +47,12 @@ export const userAttributes = {
 };
 
 export const init = (sequelize): void => {
-  User.init(userAttributes, {
+  User.init(attributes, {
     sequelize,
     tableName: "users",
     defaultScope,
     scopes,
     ...timestamps,
-    hooks: userHooks
+    hooks
   });
 };
