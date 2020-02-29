@@ -27,7 +27,7 @@
     "morgan": "^1.9.1",
     "pluralize": "^7.0.0",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.1.0"
+    "sequelize": "^5.15.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
