@@ -6,9 +6,9 @@ import {
 } from "sequelize";
 
 import { HTTP } from "../constants/http";
-import { DefaultReturn } from "../interfaces/return";
-import { ErrorReturn } from "../interfaces/error-return";
-import { ErrorDescription } from "../interfaces/error-description";
+import { ResponseError } from "../interfaces/response-error";
+import { ResponseErrors } from "../interfaces/response-errors";
+import { ErrorDetail } from "../interfaces/error-detail";
 
 export abstract class ErrorHandler {
   /**
@@ -17,11 +17,12 @@ export abstract class ErrorHandler {
    */
   public handleUnknownError(
     error: Error
-  ): { data: DefaultReturn; statusCode: number } {
+  ): { errorData: ResponseError; statusCode: number } {
     console.log(chalk.bgRed(chalk.whiteBright("UNKNOWN ERROR: ")), error);
+
     return {
-      data: {
-        error: true,
+      errorData: {
+        code: HTTP.INTERNAL_SERVER_ERROR,
         message: error.message
       },
       statusCode: HTTP.INTERNAL_SERVER_ERROR
@@ -33,21 +34,19 @@ export abstract class ErrorHandler {
    */
   public handleValidationError(
     error: ValidationError
-  ): { data: ErrorReturn; statusCode: number } {
-    const errors: ErrorDescription[] = [];
+  ): { errorData: ResponseErrors; statusCode: number } {
+    const errors: ErrorDetail[] = [];
 
-    error.errors.forEach(
-      (errorItem: ValidationErrorItem): void => {
-        errors.push({
-          type: "invalid",
-          field: errorItem.path,
-          message: `Campo ${errorItem.path} não é válido.`
-        });
-      }
-    );
+    error.errors.forEach((errorItem: ValidationErrorItem): void => {
+      errors.push({
+        type: "invalid",
+        field: errorItem.path,
+        message: `Campo ${errorItem.path} não é válido.`
+      });
+    });
 
     return {
-      data: {
+      errorData: {
         errors
       },
       statusCode: HTTP.UNPROCESSABLE_ENTITY
@@ -59,21 +58,19 @@ export abstract class ErrorHandler {
    */
   public handleUniqueConstraintError(
     error: UniqueConstraintError
-  ): { data: ErrorReturn; statusCode: number } {
-    const errors: ErrorDescription[] = [];
+  ): { errorData: ResponseErrors; statusCode: number } {
+    const errors: ErrorDetail[] = [];
 
-    error.errors.forEach(
-      (errorItem: ValidationErrorItem): void => {
-        errors.push({
-          type: "duplicated",
-          field: errorItem.path,
-          message: `Campo ${errorItem.path} já cadastrado.`
-        });
-      }
-    );
+    error.errors.forEach((errorItem: ValidationErrorItem): void => {
+      errors.push({
+        type: "duplicated",
+        field: errorItem.path,
+        message: `Campo ${errorItem.path} já cadastrado.`
+      });
+    });
 
     return {
-      data: {
+      errorData: {
         errors
       },
       statusCode: HTTP.UNPROCESSABLE_ENTITY

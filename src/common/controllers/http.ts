@@ -138,7 +138,7 @@ export default abstract class HttpController extends ExceptionHandler {
    * @param error
    */
   public processException = (res: Response, error: any): Response => {
-    const { statusCode, data } = this.handleErrors(error);
-    return this.returnData(res, data, statusCode);
+    const { errorData, statusCode } = this.handleErrors(error);
+    return this.returnData(res, errorData, statusCode);
   };
 }
