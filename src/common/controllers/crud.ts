@@ -18,7 +18,7 @@ export default abstract class CrudController extends HttpController {
   }
 
   public set defaultFindOptions(options: PaginateOptions) {
-    this._defaultFindOptions = { ...options, ...this._defaultFindOptions };
+    this._defaultFindOptions = { ...this._defaultFindOptions, ...options };
   }
 
   /**
@@ -153,7 +153,7 @@ export default abstract class CrudController extends HttpController {
     }
 
     //merge default options
-    query = { ...query, ...this.defaultFindOptions };
+    query = { ...this.defaultFindOptions, ...query };
 
     if (!["ASC", "DESC"].includes(query.order)) {
       query.order = "ASC";
