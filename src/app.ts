@@ -13,8 +13,28 @@ const compression = require('compression');
 
 import Database from "./database";
 import { IndexRoute } from "./routes";
-@@ -30,8 +37,30 @@ class App {
 
+class App {
+  public express: express.Application;
+  public sequelize: Sequelize;
+
+  /* uncomment this line to instance and enable jobs */
+  // public schedule: Schedule;
+
+  public constructor() {
+    this.express = express();
+    this.database();
+    this.middlewares();
+    this.routes();
+
+    /* uncomment this call to enable jobs */
+    /* if (!process.env.DISABLE_SCHEDULE) this.jobs(); */
+  }
+
+  private database(): void {
+    this.sequelize = new Database().sequelize;
+  }
+  
   private middlewares(): void {
     this.express.use(logger("dev"));
     this.express.use(express.json());
